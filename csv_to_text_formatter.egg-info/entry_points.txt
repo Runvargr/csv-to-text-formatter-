@@ -1,2 +1,0 @@
-[console_scripts]
-csv-formatter = csv_formatter.cli:main
