@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: csv-to-text-formatter
+Version: 1.0.0
+Summary: A CSV-to-text formatter using pandas and Jinja2 templates
+Home-page: https://github.com/Runvargr/csv-to-text-formatter-
+Author: csv-to-text-formatter contributors
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# csv-to-text-formatter-

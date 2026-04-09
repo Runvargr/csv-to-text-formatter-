@@ -1,0 +1,46 @@
+{#
+  report.txt.j2 – renders CSV data as a structured human-readable report.
+
+  Context variables provided by CSVFormatter:
+    columns   – list of column header strings
+    rows      – list of dicts (one per CSV row)
+    row_count – number of rows
+    summary   – dict of per-column statistics (min, max, mean, unique, missing)
+    title     – optional report title (pass via extra_context)
+#}
+{% set title = title | default("CSV Data Report") %}
+{{ "=" * 60 }}
+{{ title | center(60) }}
+{{ "=" * 60 }}
+
+Total records: {{ row_count }}
+Columns: {{ columns | join(", ") }}
+
+{{ "-" * 60 }}
+RECORDS
+{{ "-" * 60 }}
+{% for row in rows %}
+Record #{{ loop.index }}
+{% for col in columns %}
+  {{ (col ~ ":") | ljust(20) }} {{ row[col] }}
+{% endfor %}
+{% if not loop.last %}
+
+{% endif %}
+{% endfor %}
+
+{{ "=" * 60 }}
+SUMMARY STATISTICS
+{{ "=" * 60 }}
+{% for col in columns %}
+{% set s = summary[col] %}
+Column: {{ col }}
+  Unique values : {{ s.unique }}
+  Missing values: {{ s.missing }}
+{% if s.min is not none %}
+  Min           : {{ s.min }}
+  Max           : {{ s.max }}
+  Mean          : {{ s.mean }}
+{% endif %}
+
+{% endfor %}
