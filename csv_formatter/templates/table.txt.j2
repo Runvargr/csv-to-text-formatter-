@@ -1,0 +1,32 @@
+{#
+  table.txt.j2 – renders CSV data as a plain-text ASCII table.
+
+  Context variables provided by CSVFormatter:
+    columns    – list of column header strings
+    rows       – list of dicts (one per CSV row)
+    row_count  – number of rows
+    col_widths – dict mapping column name -> display width (pre-computed)
+#}
+{# Build separator line #}
+{% set sep = namespace(line="+") %}
+{% for col in columns %}
+{% set sep.line = sep.line + "-" * (col_widths[col] + 2) + "+" %}
+{% endfor %}
+{{ sep.line }}
+{# Header row #}
+{% set hdr = namespace(line="|") %}
+{% for col in columns %}
+{% set hdr.line = hdr.line + " " + col|center(col_widths[col]) + " |" %}
+{% endfor %}
+{{ hdr.line }}
+{{ sep.line }}
+{# Data rows #}
+{% for row in rows %}
+{% set row_ns = namespace(line="|") %}
+{% for col in columns %}
+{% set row_ns.line = row_ns.line + " " + row[col]|string|ljust(col_widths[col]) + " |" %}
+{% endfor %}
+{{ row_ns.line }}
+{% endfor %}
+{{ sep.line }}
+Total rows: {{ row_count }}

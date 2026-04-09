@@ -1,0 +1,9 @@
+{% for row in rows %}
+{% for col in columns %}
+  {{ col }}: {{ row[col] }}
+{% endfor %}
+{% if not loop.last %}
+---
+{% endif %}
+{% endfor %}
+Total records: {{ row_count }}
